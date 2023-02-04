@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level1_ProgressionData
   m_EditorClassIdentifier: 
   initialAttackTimeMultiplier: 1
-  roundTotalTime: 30
+  roundTotalTime: 25
   progressionChangeRate:
     serializedVersion: 2
     m_Curve:

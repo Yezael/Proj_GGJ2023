@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage()
     {
+        if (GameManager.Instance.gameState == GameState.RoundEnded) return;
         currLifes -= 1;
         Debug.Log("Player received damage, currLifes: " + currLifes);
         if(currLifes <= 0)

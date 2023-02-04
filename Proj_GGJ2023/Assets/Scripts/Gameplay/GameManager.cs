@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState = GameState.StartingRound;
 
+    public UIAfterAction afterAction;
+    public UIProgressBar inGameProgressBar;
+
     //Progression
     private float timer;
     private float initialProgression;
@@ -35,13 +38,15 @@ public class GameManager : MonoBehaviour
         initialProgression = LevelData.initialAttackTimeMultiplier;
         progressionChangeRate = LevelData.progressionChangeRate;
         roundTime = LevelData.roundTotalTime;
-        enemySpawner.Init(LevelData.enemiesSpawnerData);
-        ScoreManager.Instance.Init();
     }
 
     private void Start()
     {
+        enemySpawner.Init(LevelData.enemiesSpawnerData);
+        ScoreManager.Instance.Init();
+        afterAction.Init();
         gameState = GameState.Playing;
+        inGameProgressBar.Init();
     }
 
     private void Update()
@@ -49,6 +54,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.Playing)
         {
             timer += Time.deltaTime;
+            inGameProgressBar.SetProgress(GetCurrProgress());
             if (timer > roundTime)
             {
                 EndRound(true);
@@ -86,7 +92,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Round ended! you lose");
         }
-        //TODO: Stop the game and display results
+        afterAction.GameOver(win);
+    }
+
+    public float GetCurrProgress()
+    {
+        return Mathf.InverseLerp(0, roundTime, timer);
     }
 
     public float GetCurrProgressMultiplier()

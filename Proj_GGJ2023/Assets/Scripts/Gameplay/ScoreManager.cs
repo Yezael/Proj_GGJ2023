@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     private static ScoreManager instance;
     public static ScoreManager Instance => instance;
 
-    private int currScore;
+    public int currScore;
 
     public UITxt_CorrectAnswer txtScorePrefab;
     public Pool<UITxt_CorrectAnswer> textsPool;
