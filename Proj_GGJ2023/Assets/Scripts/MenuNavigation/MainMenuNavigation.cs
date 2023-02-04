@@ -10,7 +10,7 @@ public class MainMenuNavigation : MonoBehaviour
     private Button buttonStart;
     private Button buttonGoCredits;
     private Button buttonCloseCredits;
-    public const int GAME_SCENE = 2;
+    public const string GAME_SCENE = "GameScene";
 
     void Start()
     {
