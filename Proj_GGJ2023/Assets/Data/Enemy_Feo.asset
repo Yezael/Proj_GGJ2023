@@ -10,17 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3116c4556b3b9d46a0a7db886acc8ff, type: 3}
-  m_Name: "Enemy_Est\xFApido"
+  m_Name: Enemy_Feo
   m_EditorClassIdentifier: 
   initialDelayToAttack: 10
-  attackingWord: "Est\xFApido"
+  attackingWord: Feo
   acceptedDefenseWords:
-  - Inteligente
-  - Sabio
-  - Listo
-  - Ingenioso
-  - Talentoso
-  - sabia
-  - sabie
-  - lista
-  - talentosa
+  - Lindo
+  - linda
+  - hermoso
+  - hermosa
+  - precioso
+  - preciosa
+  - bello
+  - bella
+  - hermose
+  - belle
+  - linde
+  - bonito
+  - bonita
+  - bonite

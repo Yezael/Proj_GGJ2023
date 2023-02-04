@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,8 +16,14 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState = GameState.StartingRound;
 
+    public GameObject introUiPanel;
+    public GameObject gameplayUiPanel;
     public UIAfterAction afterAction;
     public UIProgressBar inGameProgressBar;
+
+    public TMP_Text startRoundTxt;
+
+    public float startRoundTime = 3;
 
     //Progression
     private float timer;
@@ -38,6 +45,7 @@ public class GameManager : MonoBehaviour
         initialProgression = LevelData.initialAttackTimeMultiplier;
         progressionChangeRate = LevelData.progressionChangeRate;
         roundTime = LevelData.roundTotalTime;
+        gameplayUiPanel.SetActive(false);
     }
 
     private void Start()
@@ -45,13 +53,26 @@ public class GameManager : MonoBehaviour
         enemySpawner.Init(LevelData.enemiesSpawnerData);
         ScoreManager.Instance.Init();
         afterAction.Init();
-        gameState = GameState.Playing;
+        gameState = GameState.StartingRound;
         inGameProgressBar.Init();
+        timer = startRoundTime;
+        startRoundTxt.gameObject.SetActive(true);
+        introUiPanel.SetActive(true);
     }
 
     private void Update()
     {
-        if (gameState == GameState.Playing)
+        if (gameState == GameState.StartingRound)
+        {
+            timer -= Time.deltaTime;
+            var label = (((int)timer) + 1).ToString();
+            startRoundTxt.SetText(label);
+            if(timer <= 0)
+            {
+                StartGame();
+            }
+        }
+        else if (gameState == GameState.Playing)
         {
             timer += Time.deltaTime;
             inGameProgressBar.SetProgress(GetCurrProgress());
@@ -62,17 +83,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void StartGame()
+    {
+        startRoundTxt.gameObject.SetActive(false);
+        introUiPanel.SetActive(false);
+        gameplayUiPanel.SetActive(true);
+        enemySpawner.OnGameStart();
+        gameState = GameState.Playing;
+    }
+
     public void PlayerSendedDefenseWord(string defensiveWord)
     {
         var currEnemies = enemySpawner.activeEnemies;
+        List<EnemyBehaviour> enemiesDamaged = new List<EnemyBehaviour>();
         for (int i = 0; i < currEnemies.Count; i++)
         {
             var currEnemy = currEnemies[i];
-            var succed = currEnemy.ReceiveDefenseWord(defensiveWord);
+            var succed = currEnemy.CanReceiveDamage(defensiveWord);
             if (succed)
             {
-                ScoreManager.Instance.AddScore(10);
+                enemiesDamaged.Add(currEnemy);
             }
+        }
+        if (enemiesDamaged.Count > 0)
+        {
+            ScoreManager.Instance.AddScore(10 * enemiesDamaged.Count);
+        }
+        for (int i = 0; i < enemiesDamaged.Count; i++)
+        {
+            enemiesDamaged[i].Kill();
         }
     }
 

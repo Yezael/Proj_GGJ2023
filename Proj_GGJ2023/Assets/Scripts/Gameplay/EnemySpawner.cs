@@ -39,6 +39,11 @@ public class EnemySpawner : MonoBehaviour
         posibleEnemyDatas = data.availableEnemies;
     }
 
+    public void OnGameStart()
+    {
+        SpawnNewEnemy();
+    }
+
 
     private void Update()
     {

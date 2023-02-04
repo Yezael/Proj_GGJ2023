@@ -31,8 +31,8 @@ public class InputsManager : MonoBehaviour
 
             defensiveWord = defensiveWord.ToLowerInvariant();
             defensiveWord = defensiveWord.Trim();
-            GameManager.Instance.PlayerSendedDefenseWord(defensiveWord);
             Debug.Log("Sended response request: " + userInput.text);
+            GameManager.Instance.PlayerSendedDefenseWord(defensiveWord);
             userInput.text = ("");
             userInput.ForceLabelUpdate();
         }

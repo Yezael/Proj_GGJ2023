@@ -16,6 +16,10 @@ public class UITxt_CorrectAnswer : MonoBehaviour
         text.SetText("+ " + scoreAmount);
         ownerPool = pool;
     }
+    public void Init(Pool<UITxt_CorrectAnswer> pool)
+    {
+        ownerPool = pool;
+    }
 
     private void Update()
     {

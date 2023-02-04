@@ -14,7 +14,6 @@ public static class StringComparer
         var normalized1 = RemoveDiacritics(txt1);
         var normalized2 = RemoveDiacritics(txt2);
         var areEqual = normalized1.Equals(normalized2, StringComparison.InvariantCultureIgnoreCase);
-        Debug.Log("Comparing: " + normalized1 + " To: " + normalized2 + " With resutl: " + areEqual);
         return areEqual;
     }
 

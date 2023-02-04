@@ -50,18 +50,22 @@ public class EnemyBehaviour : MonoBehaviour
         ownerSpawner.RecycleEnemy(this);
     }
 
-    public bool ReceiveDefenseWord(string defensiveWord)
+    public bool CanReceiveDamage(string defensiveWord)
     {
         for (int i = 0; i < acceptedDefenseWords.Length; i++)
         {
             var curr = acceptedDefenseWords[i];
-            if(StringComparer.CompareTexts(curr,defensiveWord))
+            if (StringComparer.CompareTexts(curr, defensiveWord))
             {
                 Debug.Log("Correcly killed root");
-                Die();
                 return true;
             }
         }
         return false;
+    }
+
+    public void Kill()
+    {
+        Die();
     }
 }

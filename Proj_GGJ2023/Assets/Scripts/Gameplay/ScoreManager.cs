@@ -12,8 +12,11 @@ public class ScoreManager : MonoBehaviour
     public int currScore;
 
     public UITxt_CorrectAnswer txtScorePrefab;
-    public Pool<UITxt_CorrectAnswer> textsPool;
-    public RectTransform txtsParents;
+    public UITxt_CorrectAnswer txtComboPrefab;
+    public Pool<UITxt_CorrectAnswer> comboTxtsPool;
+    public Pool<UITxt_CorrectAnswer> scoreTxtPool;
+    public RectTransform scoretxtsParents;
+    public RectTransform combostxtsParents;
 
 
     private void Awake()
@@ -31,16 +34,22 @@ public class ScoreManager : MonoBehaviour
     public void Init()
     {
         currScore = 0;
-        textsPool = new Pool<UITxt_CorrectAnswer>(txtsParents, txtScorePrefab, 30);
+        scoreTxtPool = new Pool<UITxt_CorrectAnswer>(scoretxtsParents, txtScorePrefab, 30);
+
+        comboTxtsPool = new Pool<UITxt_CorrectAnswer>(combostxtsParents, txtComboPrefab, 30);
     }
 
     public void AddScore(int scoreToAdd)
     {
-        Debug.Log("Adding score");
         currScore += scoreToAdd;
-        var newItem = textsPool.GetItem();
-        newItem.Init(scoreToAdd, textsPool);
+        var newItem = scoreTxtPool.GetItem();
+        newItem.Init(scoreToAdd, scoreTxtPool);
         newItem.transform.localPosition = Vector3.zero;
+        if(scoreToAdd > 10)
+        {
+            var comboItem = comboTxtsPool.GetItem();
+            comboItem.transform.localPosition = Vector3.zero;
+            comboItem.Init(comboTxtsPool);
+        }
     }
-
 }
