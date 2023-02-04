@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         progressionChangeRate = LevelData.progressionChangeRate;
         roundTime = LevelData.roundTotalTime;
         enemySpawner.Init(LevelData.enemiesSpawnerData);
+        ScoreManager.Instance.Init();
     }
 
     private void Start()
@@ -51,6 +52,20 @@ public class GameManager : MonoBehaviour
             if (timer > roundTime)
             {
                 EndRound(true);
+            }
+        }
+    }
+
+    public void PlayerSendedDefenseWord(string defensiveWord)
+    {
+        var currEnemies = enemySpawner.activeEnemies;
+        for (int i = 0; i < currEnemies.Count; i++)
+        {
+            var currEnemy = currEnemies[i];
+            var succed = currEnemy.ReceiveDefenseWord(defensiveWord);
+            if (succed)
+            {
+                ScoreManager.Instance.AddScore(10);
             }
         }
     }

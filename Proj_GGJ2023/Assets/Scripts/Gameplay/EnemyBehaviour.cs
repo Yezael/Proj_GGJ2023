@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    private Pool<EnemyBehaviour> ownerPool;
+    private EnemySpawner ownerSpawner;
     private float initialDelayToAttack;
     private string attackingWord;
     private string[] acceptedDefenseWords;
@@ -12,17 +13,20 @@ public class EnemyBehaviour : MonoBehaviour
     private float timer;
     private float currAttackingTime;
 
-    public void Init(EnemyData data, Pool<EnemyBehaviour> pool)
+    public TMP_Text textCompAttackingWord;
+
+    public void Init(EnemyData data, EnemySpawner spawner)
     {
         timer = 0;
         initialDelayToAttack = data.initialDelayToAttack;
         attackingWord = data.attackingWord;
+        textCompAttackingWord.SetText(attackingWord);
         acceptedDefenseWords = new string[data.acceptedDefenseWords.Length];
         for (int i = 0; i < acceptedDefenseWords.Length; i++)
         {
             acceptedDefenseWords[i] = data.acceptedDefenseWords[i];
         }
-        ownerPool = pool;
+        ownerSpawner = spawner;
         currAttackingTime = GetNewAttackingTime();
     }
 
@@ -32,12 +36,32 @@ public class EnemyBehaviour : MonoBehaviour
         if(timer >= currAttackingTime)
         {
             GameManager.Instance.player.ReceiveDamage();
-            ownerPool.RecycleItem(this);
+            Die();
         }
     }
 
     public float GetNewAttackingTime()
     {
         return initialDelayToAttack * GameManager.Instance.GetCurrProgressMultiplier();
+    }
+
+    public void Die()
+    {
+        ownerSpawner.RecycleEnemy(this);
+    }
+
+    public bool ReceiveDefenseWord(string defensiveWord)
+    {
+        for (int i = 0; i < acceptedDefenseWords.Length; i++)
+        {
+            var curr = acceptedDefenseWords[i];
+            if(StringComparer.CompareTexts(curr,defensiveWord))
+            {
+                Debug.Log("Correcly killed root");
+                Die();
+                return true;
+            }
+        }
+        return false;
     }
 }
