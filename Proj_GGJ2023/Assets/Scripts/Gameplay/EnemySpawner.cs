@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
+
+    public List<EnemyBehaviour> activeEnemies = new List<EnemyBehaviour>();
+
     public EnemyBehaviour enemyPrefab;
 
     private float timer;
@@ -14,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
     private float spawnRateRandomness = 1;
     private Pool<EnemyBehaviour> enemiesPool;
     private EnemyData[] posibleEnemyDatas;
+
 
     public void Awake()
     {
@@ -25,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     public void Start()
     {
         currSpawnRate = GetNewSpawnRate();
+        activeEnemies.Clear();
     }
 
     public void Init(EnemiesSpawnerData data)
@@ -32,8 +37,8 @@ public class EnemySpawner : MonoBehaviour
         spawnRate = data.initialSpawnRate;
         spawnRateRandomness = data.randomness;
         posibleEnemyDatas = data.availableEnemies;
-
     }
+
 
     private void Update()
     {
@@ -55,7 +60,16 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnNewEnemy()
     {
         var newEnemy = enemiesPool.GetItem();
-        newEnemy.Init(GetRandomEnemyData(), enemiesPool);
+        var pos = GetRandomSpawnPoint();
+        newEnemy.transform.position = pos;
+        newEnemy.Init(GetRandomEnemyData(), this);
+        activeEnemies.Add(newEnemy);
+    }
+
+    public void RecycleEnemy(EnemyBehaviour enemyToRecycle)
+    {
+        activeEnemies.Remove(enemyToRecycle);
+        enemiesPool.RecycleItem(enemyToRecycle);
     }
 
     public EnemyData GetRandomEnemyData()
@@ -64,6 +78,11 @@ public class EnemySpawner : MonoBehaviour
         return posibleEnemyDatas[selected];
     }
 
+
+    public Vector2 GetRandomSpawnPoint()
+    {
+        return new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+    }
 }
 
 [Serializable]
