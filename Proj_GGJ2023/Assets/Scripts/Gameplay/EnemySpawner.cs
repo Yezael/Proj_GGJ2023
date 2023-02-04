@@ -19,6 +19,11 @@ public class EnemySpawner : MonoBehaviour
     {
         timer = 0;
         enemiesPool = new Pool<EnemyBehaviour>(transform,enemyPrefab, 30);
+    }
+
+
+    public void Start()
+    {
         currSpawnRate = GetNewSpawnRate();
     }
 
