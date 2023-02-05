@@ -20,6 +20,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] Renderer hightlightObj;
 
+    public bool alreadyDead = false;
+
     public void Init(EnemyData data, EnemySpawner spawner)
     {
         timer = 0;
@@ -36,11 +38,15 @@ public class EnemyBehaviour : MonoBehaviour
         originalPos = transform.position;
         transform.right = (GameManager.Instance.player.transform.position - transform.position).normalized;
         textCompAttackingWord.transform.right = Vector3.right;
+        hightlightObj.material.SetFloat("_IntensityDist", 0);
+        alreadyDead = false;
+
     }
 
     private void Update()
     {
         if (GameManager.Instance.gameState != GameState.Playing) return;
+        if (alreadyDead) return;
         timer += Time.deltaTime;
         //Tutorial
         if(timer >= (currAttackingTime / 3f) && (!GameManager.Instance.tutorialDone || !GameManager.Instance.tutorial2ndWord))
@@ -66,8 +72,29 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void Die()
     {
+        if(DieRoutineRef != null)
+        {
+            StopCoroutine(DieRoutineRef);
+        }
+        alreadyDead = true;
+        DieRoutineRef = DieRoutine();
+        StartCoroutine(DieRoutineRef);
+    }
+
+    private IEnumerator DieRoutineRef;
+    
+    public IEnumerator DieRoutine()
+    {
+        var currdistortion = 0f;
+        while (currdistortion < 2.3f)
+        {
+            currdistortion += 3 * Time.deltaTime;
+            hightlightObj.material.SetFloat("_IntensityDist", currdistortion);
+            yield return null;
+        }
         ownerSpawner.RecycleEnemy(this);
     }
+    
 
     public void SetHightlight(bool hightlight)
     {
