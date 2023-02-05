@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2640fba1b79cd741aa5ba0e6fbfee0e, type: 3}
   m_Name: Level1_ProgressionData
   m_EditorClassIdentifier: 
-  initialAttackTimeMultiplier: 1
-  roundTotalTime: 25
+  initialAttackTimeMultiplier: 2
+  roundTotalTime: 50
   progressionChangeRate:
     serializedVersion: 2
     m_Curve:

@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < brainStates[CurrLifes].objsToActive.Length; i++)
         {
-            brainStates[newHealth].objsToActive[i].SetActive(false);
+            brainStates[currLifes].objsToActive[i].SetActive(false);
         }
 
         currLifes = newHealth;
