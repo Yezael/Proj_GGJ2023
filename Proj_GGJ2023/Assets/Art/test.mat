@@ -46,9 +46,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _IntensityDist: 0.01
+    - _Outline: 0.03
     - _intensity: 56.58
     - _test: 0.05
     m_Colors:
+    - _Color: {r: 1, g: 0.11290766, b: 0, a: 0}
     - _SPeed2: {r: 2.66, g: 0, b: 0, a: 0}
     - _Speed: {r: -0.81, g: 0, b: 0, a: 0}
     - _Vector2: {r: 11.11, g: 0, b: 0, a: 0}
