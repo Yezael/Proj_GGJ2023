@@ -41,7 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
             GameManager.Instance.player.ReceiveDamage();
             Die();
         }
-        var progress = Mathf.Lerp(0, currAttackingTime, timer);
+        var progress = Mathf.InverseLerp(0, currAttackingTime, timer);
         var anim_progress = movementAnim.Evaluate(progress);
         var end_pos = Vector3.zero;
         transform.position = Vector3.Lerp(originalPos, end_pos, anim_progress);
