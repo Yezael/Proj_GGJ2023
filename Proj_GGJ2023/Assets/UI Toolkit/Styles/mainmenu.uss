@@ -1,6 +1,6 @@
 .buttons {
     font-size: 40px;
-    -unity-font: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=63fb62b08d838b540965a8cb6b1da427&type=3#NotInter-Regular');
+    -unity-font: url('project://database/Assets/Art/Heyla%20Font%20by%207Ntypes.otf?fileID=12800000&guid=8884c30255d901d4481ca29e52c4be34&type=3#Heyla Font by 7Ntypes');
     -unity-text-align: middle-center;
     margin-left: 10px;
     margin-right: 10px;
@@ -10,7 +10,9 @@
     height: 20%;
     align-items: center;
     background-image: url('project://database/Assets/Art/UI/Big_CTA.png?fileID=2800000&guid=4b6b13e329553164da460477b9c6a970&type=3#Big_CTA');
-    color: rgba(122, 209, 78, 255);
+    color: rgb(110, 25, 53);
     -unity-background-image-tint-color: rgb(255, 255, 255);
     background-color: rgba(255, 254, 254, 0);
+    -unity-font-style: bold;
+    -unity-font-definition: none;
 }
