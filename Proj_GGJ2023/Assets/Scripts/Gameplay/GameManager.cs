@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerController player;
     public EnemySpawner enemySpawner;
+    public DefenseAngelBehaviour angelB;
+    public InputsManager inputs;
 
     public GameState gameState = GameState.StartingRound;
 
@@ -80,6 +82,16 @@ public class GameManager : MonoBehaviour
             {
                 EndRound(true);
             }
+            for (int i = 0; i < enemiesBeingTargeted.Count; i++)
+            {
+                enemiesBeingTargeted[i].SetHightlight(false);
+            }
+            CheckPlayerParcialAnswer(enemiesBeingTargeted);
+            for (int i = 0; i < enemiesBeingTargeted.Count; i++)
+            {
+                enemiesBeingTargeted[i].SetHightlight(true);
+
+            }
         }
     }
 
@@ -90,6 +102,27 @@ public class GameManager : MonoBehaviour
         gameplayUiPanel.SetActive(true);
         enemySpawner.OnGameStart();
         gameState = GameState.Playing;
+    }
+
+    List<EnemyBehaviour> enemiesBeingTargeted = new List<EnemyBehaviour>(30);
+
+
+    public void CheckPlayerParcialAnswer(List<EnemyBehaviour> posibleEnemies)
+    {
+        posibleEnemies.Clear();
+        var currDefensiveWord = inputs.userInput.text;
+        if (string.IsNullOrEmpty(currDefensiveWord)) return;
+        var currEnemies = enemySpawner.activeEnemies;
+        for (int i = 0; i < currEnemies.Count; i++)
+        {
+            var curr = currEnemies[i];
+            var targetting = curr.CheckPartialMatch(currDefensiveWord);
+            if (targetting)
+            {
+                angelB.StartDefendingFrom(curr);
+                posibleEnemies.Add(curr);
+            }
+        }
     }
 
     public void PlayerSendedDefenseWord(string defensiveWord)

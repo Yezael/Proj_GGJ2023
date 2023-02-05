@@ -10,17 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3116c4556b3b9d46a0a7db886acc8ff, type: 3}
-  m_Name: Enemy_Bobo
+  m_Name: Enemy_Vago
   m_EditorClassIdentifier: 
-  initialDelayToAttack: 5
-  attackingWord: Bobo
+  initialDelayToAttack: 6
+  attackingWord: Vago
   acceptedDefenseWords:
-  - Inteligente
-  - Sabio
-  - Listo
-  - Ingenioso
-  - Talentoso
-  - sabia
-  - sabie
-  - lista
-  - talentosa
+  - Juicioso
+  - Dedicado
+  - estudioso
+  - estudiosa
+  - juiciosa
+  - dedicada

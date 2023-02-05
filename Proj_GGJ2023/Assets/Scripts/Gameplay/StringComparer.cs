@@ -17,6 +17,22 @@ public static class StringComparer
         return areEqual;
     }
 
+    public static bool CompareParcialText(string parcialAnswer, string neededAnswer)
+    {
+        var normalizedParcialA = RemoveDiacritics(parcialAnswer).ToLower();
+        var normalizedNeddedA = RemoveDiacritics(neededAnswer).ToLower();
+        var amount = normalizedParcialA.Length;
+        if (amount > normalizedNeddedA.Length) return false;
+        for (int i = 0; i < amount; i++)
+        {
+            if(!normalizedParcialA[i].Equals(normalizedNeddedA[i]))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     static string RemoveDiacritics(string text)
     {
         return string.Concat(

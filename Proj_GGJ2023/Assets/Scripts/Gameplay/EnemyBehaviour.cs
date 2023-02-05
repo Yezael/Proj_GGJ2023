@@ -16,6 +16,8 @@ public class EnemyBehaviour : MonoBehaviour
     public TMP_Text textCompAttackingWord;
     public AnimationCurve movementAnim;
 
+    public GameObject hightlightObj;
+
     public void Init(EnemyData data, EnemySpawner spawner)
     {
         timer = 0;
@@ -57,6 +59,23 @@ public class EnemyBehaviour : MonoBehaviour
         ownerSpawner.RecycleEnemy(this);
     }
 
+    public void SetHightlight(bool hightlight)
+    {
+        hightlightObj.SetActive(hightlight);
+    }
+
+    public bool CheckPartialMatch(string defensiveWord)
+    {
+        for (int i = 0; i < acceptedDefenseWords.Length; i++)
+        {
+            var curr = acceptedDefenseWords[i];
+            if (StringComparer.CompareParcialText(defensiveWord, curr))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public bool CanReceiveDamage(string defensiveWord)
     {
         for (int i = 0; i < acceptedDefenseWords.Length; i++)
