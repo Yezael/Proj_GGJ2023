@@ -18,7 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
     public TMP_Text textCompAttackingWord;
     public AnimationCurve movementAnim;
 
-    public GameObject hightlightObj;
+    [SerializeField] Renderer hightlightObj;
 
     public void Init(EnemyData data, EnemySpawner spawner)
     {
@@ -71,6 +71,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void SetHightlight(bool hightlight)
     {
+        if (hightlight)
+            hightlightObj.material.SetFloat("Outline", 0.03f);
+        else
+            hightlightObj.material.SetFloat("Outline", 0f);
+
     }
 
     public bool CheckPartialMatch(string defensiveWord)
