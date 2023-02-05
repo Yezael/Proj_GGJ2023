@@ -71,7 +71,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void SetHightlight(bool hightlight)
     {
-        hightlightObj.SetActive(hightlight);
     }
 
     public bool CheckPartialMatch(string defensiveWord)
