@@ -34,6 +34,8 @@ public class EnemyBehaviour : MonoBehaviour
         ownerSpawner = spawner;
         currAttackingTime = GetNewAttackingTime();
         originalPos = transform.position;
+        transform.right = (GameManager.Instance.player.transform.position - transform.position).normalized;
+        textCompAttackingWord.transform.right = Vector3.right;
     }
 
     private void Update()
