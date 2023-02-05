@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject introUiPanel;
     public GameObject gameplayUiPanel;
+    public GameObject tutorialUIPanel;
+    public GameObject tutorial_completeTheWordTxt;
+    public GameObject pauseUiPanel;
+    public Button pauseBtn;
     public UIAfterAction afterAction;
     public UIProgressBar inGameProgressBar;
 
@@ -32,6 +37,12 @@ public class GameManager : MonoBehaviour
     private float initialProgression;
     private AnimationCurve progressionChangeRate;
     private float roundTime;
+
+    //Tutorial
+    public static string playerPrefsTutorialDoneLabel = "TutorialDone";
+    public static string playerPrefsTutorial2DoneLabel = "Tutorial2Done";
+    public bool tutorialDone = false;
+    public bool tutorial2ndWord = false;
 
     private void Awake()
     {
@@ -48,6 +59,9 @@ public class GameManager : MonoBehaviour
         progressionChangeRate = LevelData.progressionChangeRate;
         roundTime = LevelData.roundTotalTime;
         gameplayUiPanel.SetActive(false);
+        pauseBtn.onClick.AddListener(() => gameState = GameState.Paused);
+        tutorialDone = PlayerPrefs.GetInt(playerPrefsTutorialDoneLabel) == 1;
+        tutorial2ndWord = PlayerPrefs.GetInt(playerPrefsTutorial2DoneLabel) == 1;
     }
 
     private void Start()
@@ -62,6 +76,15 @@ public class GameManager : MonoBehaviour
         introUiPanel.SetActive(true);
     }
 
+    private void StartGame()
+    {
+        startRoundTxt.gameObject.SetActive(false);
+        introUiPanel.SetActive(false);
+        gameplayUiPanel.SetActive(true);
+        enemySpawner.OnGameStart();
+        gameState = GameState.Playing;
+    }
+
     private void Update()
     {
         if (gameState == GameState.StartingRound)
@@ -69,7 +92,7 @@ public class GameManager : MonoBehaviour
             timer -= Time.deltaTime;
             var label = (((int)timer) + 1).ToString();
             startRoundTxt.SetText(label);
-            if(timer <= 0)
+            if (timer <= 0)
             {
                 StartGame();
             }
@@ -92,16 +115,47 @@ public class GameManager : MonoBehaviour
                 enemiesBeingTargeted[i].SetHightlight(true);
 
             }
+        } else if (gameState == GameState.Paused)
+        {
+            pauseUiPanel.SetActive(true);
         }
     }
 
-    private void StartGame()
+    public void StartTutorialPause(EnemyBehaviour fromEnemy)
     {
-        startRoundTxt.gameObject.SetActive(false);
-        introUiPanel.SetActive(false);
-        gameplayUiPanel.SetActive(true);
-        enemySpawner.OnGameStart();
+        gameState = GameState.TutorialPause;
+        tutorialUIPanel.gameObject.SetActive(true);
+        if (!tutorialDone)
+        {
+            var validAnswer = fromEnemy.acceptedDefenseWords[0];
+            validAnswer = validAnswer.Remove(validAnswer.Length - 2);
+            inputs.userInput.text = validAnswer;
+            inputs.userInput.ForceLabelUpdate();
+        }
+        else
+        {
+            tutorial_completeTheWordTxt.SetActive(false);
+        }
+    }
+    public void StopTutorialPause()
+    {
         gameState = GameState.Playing;
+        tutorialUIPanel.SetActive(false);
+        if (!tutorialDone)
+        {
+            tutorialDone = true;
+            PlayerPrefs.SetInt(playerPrefsTutorialDoneLabel, 1);
+        }
+        else
+        {
+            tutorial2ndWord = true;
+            PlayerPrefs.SetInt(playerPrefsTutorial2DoneLabel, 1);
+        }
+    }
+    [ContextMenu("GameManager/ResetPlayerPrefs")]
+    public void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     List<EnemyBehaviour> enemiesBeingTargeted = new List<EnemyBehaviour>(30);
@@ -125,7 +179,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlayerSendedDefenseWord(string defensiveWord)
+    public bool PlayerSendedDefenseWord(string defensiveWord)
     {
         var currEnemies = enemySpawner.activeEnemies;
         List<EnemyBehaviour> enemiesDamaged = new List<EnemyBehaviour>();
@@ -146,6 +200,7 @@ public class GameManager : MonoBehaviour
         {
             enemiesDamaged[i].Kill();
         }
+        return enemiesDamaged.Count > 0;
     }
 
     public void OnPlayerDied()
@@ -187,4 +242,5 @@ public enum GameState
     Playing,
     Paused,
     RoundEnded,
+    TutorialPause,
 }

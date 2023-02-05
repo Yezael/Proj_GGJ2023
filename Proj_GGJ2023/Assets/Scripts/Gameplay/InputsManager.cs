@@ -32,9 +32,13 @@ public class InputsManager : MonoBehaviour
             defensiveWord = defensiveWord.ToLowerInvariant();
             defensiveWord = defensiveWord.Trim();
             Debug.Log("Sended response request: " + userInput.text);
-            GameManager.Instance.PlayerSendedDefenseWord(defensiveWord);
+            var succed = GameManager.Instance.PlayerSendedDefenseWord(defensiveWord);
             userInput.text = ("");
             userInput.ForceLabelUpdate();
+            if(succed && GameManager.Instance.gameState == GameState.TutorialPause)
+            {
+                GameManager.Instance.StopTutorialPause();
+            }
         }
     }
 

@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class EnemyBehaviour : MonoBehaviour
 {
     private EnemySpawner ownerSpawner;
     private float initialDelayToAttack;
     private string attackingWord;
-    private string[] acceptedDefenseWords;
+    [NonSerialized]
+    public string[] acceptedDefenseWords;
     private Vector3 originalPos;
     private float timer;
     private float currAttackingTime;
@@ -31,13 +33,19 @@ public class EnemyBehaviour : MonoBehaviour
         }
         ownerSpawner = spawner;
         currAttackingTime = GetNewAttackingTime();
-        Debug.Log(currAttackingTime);
         originalPos = transform.position;
     }
 
     private void Update()
     {
+        if (GameManager.Instance.gameState != GameState.Playing) return;
         timer += Time.deltaTime;
+        //Tutorial
+        if(timer >= (currAttackingTime / 3f) && (!GameManager.Instance.tutorialDone || !GameManager.Instance.tutorial2ndWord))
+        {
+            GameManager.Instance.StartTutorialPause(this);
+        }
+        //
         if(timer >= currAttackingTime)
         {
             GameManager.Instance.player.ReceiveDamage();
