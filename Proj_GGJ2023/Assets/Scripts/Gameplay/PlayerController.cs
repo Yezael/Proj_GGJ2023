@@ -33,8 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.gameState == GameState.RoundEnded) return;
 
-        currHitsUntilLifeChange -= 1;
-        if (currHitsUntilLifeChange > 0) return;
+
 
         currHitsUntilLifeChange = hitsPerLife;
 
@@ -50,8 +49,6 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveHealth()
     {
-        currHitsUntilLifeChange += 1;
-        if (currHitsUntilLifeChange < hitsPerLife) return;
         if (CurrLifes >= 4) return;
         currHitsUntilLifeChange = 0;
         CurrLifes += 1;
