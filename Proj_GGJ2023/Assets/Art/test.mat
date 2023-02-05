@@ -47,7 +47,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _IntensityDist: 0.01
-    - _Outline: 0.03
+    - _Outline: 0
     - _intensity: 56.58
     - _test: 0.05
     m_Colors:

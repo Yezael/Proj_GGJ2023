@@ -71,7 +71,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  hightlightObj: {fileID: 0}
+  renderer: {fileID: 7180217605888510123}
+  hightlightObj: {fileID: 1621372533221058511}
 --- !u!1 &711550660997249488
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +430,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b509aa73caf55064b93f50415a968417, type: 3}
+--- !u!1 &1621372533221058511 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8490426746344364984, guid: b509aa73caf55064b93f50415a968417, type: 3}
+  m_PrefabInstance: {fileID: 7157428852936129655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7180217605888510123 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 67846741472195804, guid: b509aa73caf55064b93f50415a968417, type: 3}
+  m_PrefabInstance: {fileID: 7157428852936129655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8387623226441944840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1671567170460513151, guid: b509aa73caf55064b93f50415a968417, type: 3}
