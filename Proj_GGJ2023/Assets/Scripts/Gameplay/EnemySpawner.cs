@@ -9,14 +9,14 @@ public class EnemySpawner : MonoBehaviour
 
     public List<EnemyBehaviour> activeEnemies = new List<EnemyBehaviour>();
 
-    public EnemyBehaviour enemyPrefab;
+    public EnemyBehaviour enemyPrefab;    
 
     private float timer;
     private float currSpawnRate;
     private float spawnRate = 1;
     private float spawnRateRandomness = 1;
     private Pool<EnemyBehaviour> enemiesPool;
-    private EnemyData[] posibleEnemyDatas;
+    private EnemyData[] posibleEnemyDatas;    
 
 
     public void Awake()
@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void OnGameStart()
     {
-        SpawnNewEnemy();
+        SpawnNewEnemy();        
     }
 
 
@@ -53,7 +53,8 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnNewEnemy();
             timer = 0;
-        }
+        }       
+
     }
 
 
@@ -86,7 +87,32 @@ public class EnemySpawner : MonoBehaviour
 
     public Vector2 GetRandomSpawnPoint()
     {
-        return new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+        string[] positions = new string[] { "left", "right", "top", "bottom" };
+        var selected = Random.Range(0, positions.Length - 1);
+        string position = positions[selected];
+        float x = 0F, y = 0F;
+        if (position == "left")
+        {
+            x = Random.Range(-0.5F, 0F);
+            y = Random.Range(0F, 1F);
+        }
+        else if (position == "right")
+        {
+            x = Random.Range(1F, 1.5F);
+            y = Random.Range(0F, 1F);
+        }
+        else if (position == "top")
+        {
+            x = Random.Range(0F, 1F);
+            y = Random.Range(1F, 1.5F);
+        }
+        else if (position == "bottom")
+        {
+            x = Random.Range(0F, 1F);
+            y = Random.Range(-0.5F, 0F);
+        }
+        Vector3 p1 = Camera.main.ViewportToWorldPoint(new Vector3(x, y, 0F));
+        return p1;
     }
 }
 

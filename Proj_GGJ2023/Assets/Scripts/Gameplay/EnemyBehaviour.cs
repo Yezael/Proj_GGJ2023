@@ -9,11 +9,12 @@ public class EnemyBehaviour : MonoBehaviour
     private float initialDelayToAttack;
     private string attackingWord;
     private string[] acceptedDefenseWords;
-
+    private Vector3 originalPos;
     private float timer;
     private float currAttackingTime;
 
     public TMP_Text textCompAttackingWord;
+    public AnimationCurve movementAnim;
 
     public void Init(EnemyData data, EnemySpawner spawner)
     {
@@ -28,6 +29,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
         ownerSpawner = spawner;
         currAttackingTime = GetNewAttackingTime();
+        Debug.Log(currAttackingTime);
+        originalPos = transform.position;
     }
 
     private void Update()
@@ -38,6 +41,10 @@ public class EnemyBehaviour : MonoBehaviour
             GameManager.Instance.player.ReceiveDamage();
             Die();
         }
+        var progress = Mathf.Lerp(0, currAttackingTime, timer);
+        var anim_progress = movementAnim.Evaluate(progress);
+        var end_pos = Vector3.zero;
+        transform.position = Vector3.Lerp(originalPos, end_pos, anim_progress);
     }
 
     public float GetNewAttackingTime()
