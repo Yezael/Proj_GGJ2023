@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     public int initialLifes = 5;
     public int currLifes = 5;
 
+
+    public Animator anims;
+
     public void Awake()
     {
         currLifes = initialLifes;
