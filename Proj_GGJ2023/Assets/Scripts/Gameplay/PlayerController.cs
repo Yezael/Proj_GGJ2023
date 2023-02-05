@@ -61,14 +61,6 @@ public class PlayerController : MonoBehaviour
     public void SetHealth(int newHealth)
     {
         previousLife = currLifes;
-        currLifes = newHealth;
-        anims.SetInteger("Level", CurrLifes);
-    }
-
-    int previousLife = -1;
-
-    public void OnEndedLevelUpAnim()
-    {
         if (previousLife >= 0 && previousLife < 4)
         {
             for (int i = 0; i < brainStates[previousLife].objsToActive.Length; i++)
@@ -76,12 +68,22 @@ public class PlayerController : MonoBehaviour
                 brainStates[previousLife].objsToActive[i].SetActive(false);
             }
         }
+        currLifes = newHealth;
         if (CurrLifes < 0 || CurrLifes >= 4) return;
 
         for (int i = 0; i < brainStates[CurrLifes].objsToActive.Length; i++)
         {
             brainStates[CurrLifes].objsToActive[i].SetActive(true);
         }
+        anims.SetInteger("Level", CurrLifes);
+    }
+
+    int previousLife = -1;
+
+    public void OnEndedLevelUpAnim()
+    {
+        
+       
     }
 }
 
