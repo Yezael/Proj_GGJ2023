@@ -18,6 +18,8 @@ public class DefenseAngelBehaviour : MonoBehaviour
 
     public AngelStates currState;
 
+    public Animator anims;
+
 
     public void Start()
     {
@@ -58,7 +60,18 @@ public class DefenseAngelBehaviour : MonoBehaviour
     {
         if (newState == currState) return;
         currState = newState;
-        //TODO anims here
+        switch (currState)
+        {
+            case AngelStates.Attacking:
+                anims.SetTrigger("Attack");
+                break;
+            case AngelStates.Idle:
+                anims.SetTrigger("Idle");
+                break;
+            case AngelStates.Walking:
+                anims.SetTrigger("Idle");
+                break;
+        }
     }
 
 }
