@@ -9,7 +9,7 @@ public class PlayerAnimsListener : MonoBehaviour
 
     public void AnimEnded()
     {
-
+        playerController.OnEndedLevelUpAnim();
     }
   
 }
