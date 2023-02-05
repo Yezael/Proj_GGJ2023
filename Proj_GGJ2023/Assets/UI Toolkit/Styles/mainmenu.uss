@@ -9,4 +9,8 @@
     width: 50%;
     height: 20%;
     align-items: center;
+    background-image: url('project://database/Assets/Art/UI/Big_CTA.png?fileID=2800000&guid=4b6b13e329553164da460477b9c6a970&type=3#Big_CTA');
+    color: rgba(122, 209, 78, 255);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(255, 254, 254, 0);
 }
