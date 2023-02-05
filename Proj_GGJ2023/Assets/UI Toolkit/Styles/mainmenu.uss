@@ -1,5 +1,5 @@
 .buttons {
-    font-size: 40px;
+    font-size: 55px;
     -unity-font: url('project://database/Assets/Art/Heyla%20Font%20by%207Ntypes.otf?fileID=12800000&guid=8884c30255d901d4481ca29e52c4be34&type=3#Heyla Font by 7Ntypes');
     -unity-text-align: middle-center;
     margin-left: 10px;
@@ -15,4 +15,5 @@
     background-color: rgba(255, 254, 254, 0);
     -unity-font-style: bold;
     -unity-font-definition: none;
+    padding-bottom: 20px;
 }
