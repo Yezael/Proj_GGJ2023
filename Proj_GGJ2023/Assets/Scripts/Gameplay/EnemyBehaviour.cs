@@ -72,9 +72,9 @@ public class EnemyBehaviour : MonoBehaviour
     public void SetHightlight(bool hightlight)
     {
         if (hightlight)
-            hightlightObj.material.SetFloat("Outline", 0.03f);
+            hightlightObj.material.SetFloat("_Outline", 0.03f);
         else
-            hightlightObj.material.SetFloat("Outline", 0f);
+            hightlightObj.material.SetFloat("_Outline", 0f);
 
     }
 
