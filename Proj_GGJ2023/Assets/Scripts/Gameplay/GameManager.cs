@@ -195,6 +195,7 @@ public class GameManager : MonoBehaviour
         if (enemiesDamaged.Count > 0)
         {
             ScoreManager.Instance.AddScore(10 * enemiesDamaged.Count);
+            player.ReceiveHealth();
         }
         for (int i = 0; i < enemiesDamaged.Count; i++)
         {

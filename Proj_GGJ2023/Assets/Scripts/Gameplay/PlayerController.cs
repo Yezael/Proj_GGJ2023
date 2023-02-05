@@ -1,34 +1,83 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int hitsPerLife;
+    private int currHitsUntilLifeChange;
+
     public int initialLifes = 5;
-    public int currLifes = 5;
+    private int currLifes = 5;
+    public int CurrLifes { get => currLifes; 
+        set
+        {
+            SetHealth(value);
+        }
+    }
 
 
     public Animator anims;
 
+    public BrainState[] brainStates;
+ 
+
     public void Awake()
     {
-        currLifes = initialLifes;
+        currLifes = 2;
+        currHitsUntilLifeChange = hitsPerLife;
     }
 
     public void ReceiveDamage()
     {
         if (GameManager.Instance.gameState == GameState.RoundEnded) return;
-        currLifes -= 1;
-        Debug.Log("Player received damage, currLifes: " + currLifes);
-        if(currLifes <= 0)
+
+        currHitsUntilLifeChange -= 1;
+        if (currHitsUntilLifeChange > 0) return;
+
+        currHitsUntilLifeChange = hitsPerLife;
+
+        CurrLifes -= 1;
+        anims.SetTrigger("LevelDown");
+
+        if (CurrLifes < 0)
         {
-            Debug.Log("Player died");
+            anims.SetTrigger("Die");
             GameManager.Instance.OnPlayerDied();
         }
     }
 
     public void ReceiveHealth()
     {
-        currLifes += 1;
+        currHitsUntilLifeChange += 1;
+        if (currHitsUntilLifeChange < hitsPerLife) return;
+        if (CurrLifes >= 4) return;
+        currHitsUntilLifeChange = 0;
+        CurrLifes += 1;
+        anims.SetTrigger("LevelUp");
     }
+
+    public void SetHealth(int newHealth)
+    {
+        for (int i = 0; i < brainStates[CurrLifes].objsToActive.Length; i++)
+        {
+            brainStates[newHealth].objsToActive[i].SetActive(false);
+        }
+
+        currLifes = newHealth;
+        anims.SetInteger("Level", CurrLifes);
+        if (CurrLifes < 0) return;
+        for (int i = 0; i < brainStates[newHealth].objsToActive.Length; i++)
+        {
+            brainStates[newHealth].objsToActive[i].SetActive(true);
+        }
+    }
+}
+
+[Serializable]
+public class BrainState
+{
+    public int level;
+    public GameObject[] objsToActive;
 }

@@ -2457,8 +2457,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc5f69244be10a49ae95eef6772aa62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitsPerLife: 1
   initialLifes: 5
-  currLifes: 5
+  anims: {fileID: 2116162931}
+  brainStates:
+  - level: 0
+    objsToActive: []
+  - level: 1
+    objsToActive: []
+  - level: 2
+    objsToActive: []
+  - level: 3
+    objsToActive: []
+  - level: 4
+    objsToActive: []
 --- !u!1 &1141226909
 GameObject:
   m_ObjectHideFlags: 0
@@ -5550,5 +5562,10 @@ PrefabInstance:
 --- !u!4 &2116162930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1558182326463531111, guid: 4857dbe9d5bd08a4da1406f73e8d68ec, type: 3}
+  m_PrefabInstance: {fileID: 2116162929}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2116162931 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2037710738, guid: 4857dbe9d5bd08a4da1406f73e8d68ec, type: 3}
   m_PrefabInstance: {fileID: 2116162929}
   m_PrefabAsset: {fileID: 0}
