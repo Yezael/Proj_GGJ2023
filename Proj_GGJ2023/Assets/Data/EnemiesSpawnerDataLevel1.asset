@@ -15,8 +15,17 @@ MonoBehaviour:
   initialSpawnRate: 2.5
   randomness: 0.5
   availableEnemies:
-  - {fileID: 11400000, guid: 7a55a09e31fe0c84da69ef0f702ff1eb, type: 2}
+  - {fileID: 11400000, guid: 967b704b394ee214e96f5157a4f20cd9, type: 2}
   - {fileID: 11400000, guid: 3ca15e3c320364d488418ec48c57f49d, type: 2}
+  - {fileID: 11400000, guid: f5200ba826fe7bc4abed25d28da94f60, type: 2}
+  - {fileID: 11400000, guid: b1b369d41c0773849adab49f6ea79139, type: 2}
+  - {fileID: 11400000, guid: 7a55a09e31fe0c84da69ef0f702ff1eb, type: 2}
+  - {fileID: 11400000, guid: 7d65bef04c1574e43a254ed3237e8c1c, type: 2}
   - {fileID: 11400000, guid: 6aa56a08fbc381a409b5e795d7be91e3, type: 2}
+  - {fileID: 11400000, guid: 6df44e1282f0d044d9ede666cdef9eef, type: 2}
+  - {fileID: 11400000, guid: 937684ba17eb56a469752ededbc13574, type: 2}
   - {fileID: 11400000, guid: e24b0dc542d0db547b108237c8718560, type: 2}
+  - {fileID: 11400000, guid: afa713d66bcef14489aa45b30a136ec0, type: 2}
+  - {fileID: 11400000, guid: a935f6c5c14366249ba597d9835cf4dd, type: 2}
+  - {fileID: 11400000, guid: 5ba6b626535904243809e280523c0581, type: 2}
   - {fileID: 11400000, guid: f08363f39754cdc42b82974870bb80be, type: 2}
