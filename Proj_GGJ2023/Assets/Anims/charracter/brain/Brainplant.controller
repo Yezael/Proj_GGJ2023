@@ -268,7 +268,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 6
     m_ConditionEvent: Level
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
@@ -368,19 +368,19 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3776224466814089487}
-    m_Position: {x: 140, y: 390, z: 0}
+    m_Position: {x: 130, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4983320066428617449}
-    m_Position: {x: 220, y: 290, z: 0}
+    m_Position: {x: 150, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -41089522936520579}
-    m_Position: {x: 580, y: 250, z: 0}
+    m_Position: {x: 580, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4315985043477231540}
     m_Position: {x: 560, y: 720, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4303711905839173535}
-    m_Position: {x: 590, y: 370, z: 0}
+    m_Position: {x: 600, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8085616603893724634}
     m_Position: {x: 590, y: 480, z: 0}
@@ -425,9 +425,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
+  - m_ConditionMode: 6
     m_ConditionEvent: Level
-    m_EventTreshold: 2
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4983320066428617449}
   m_Solo: 0
